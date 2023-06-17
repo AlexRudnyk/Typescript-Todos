@@ -1,7 +1,28 @@
-import React from "react";
+import { TodosList } from "./components/TodosList";
+import { AddTodo } from "./components/AddTodo";
+import { IItem } from "./types/todo";
+import { useState } from "react";
+import { nanoid } from "nanoid";
 
-function App() {
-  return <div>Hello World!!!</div>;
-}
+export const App: React.FC = () => {
+  const [todos, setTodos] = useState<IItem[]>([]);
 
-export default App;
+  const addTodoHandler = (todo: IItem) => {
+    setTodos((prev) => {
+      return [
+        ...prev,
+        {
+          id: nanoid(),
+          title: todo.title,
+        },
+      ];
+    });
+  };
+
+  return (
+    <>
+      <AddTodo onAddTodo={addTodoHandler} />
+      <TodosList todos={todos} />
+    </>
+  );
+};
