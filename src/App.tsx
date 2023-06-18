@@ -1,36 +1,19 @@
-import { TodosList } from "./components/TodosList";
-import { AddTodo } from "./components/AddTodo";
-import { IItem } from "./types/todo";
-import { useState } from "react";
-import { nanoid } from "nanoid";
+import { TodosList } from "./components/TodosList/TodosList";
+import { AddTodo } from "./components/AddTodo/AddTodo";
+import { useAppDispatch } from "./hook";
+import { addTodo } from "./redux/todoSlice";
 
 export const App: React.FC = () => {
-  const [todos, setTodos] = useState<IItem[]>([]);
+  const dispatch = useAppDispatch();
 
-  const addTodoHandler = (todo: IItem) => {
-    setTodos((prev) => {
-      return [
-        ...prev,
-        {
-          id: nanoid(),
-          title: todo.title,
-        },
-      ];
-    });
-  };
-
-  const deleteTodoHandler = (id: string) => {
-    setTodos((prev) => {
-      return prev.filter((todo) => {
-        return todo.id !== id;
-      });
-    });
+  const addTodoHandler = (title: string) => {
+    dispatch(addTodo(title));
   };
 
   return (
     <>
       <AddTodo onAddTodo={addTodoHandler} />
-      <TodosList delete={deleteTodoHandler} todos={todos} />
+      <TodosList />
     </>
   );
 };

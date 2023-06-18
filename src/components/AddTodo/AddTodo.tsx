@@ -1,38 +1,24 @@
 import { useState } from "react";
 import { AddTodoContainer, AddButton, InputField } from "./AddTodo.styled";
-import { IItem } from "../../types/todo";
 
 interface IProps {
-  onAddTodo: (todo: IItem) => void;
+  onAddTodo: (title: string) => void;
 }
 
 export const AddTodo: React.FC<IProps> = (props) => {
-  const [todo, setTodo] = useState<IItem>({
-    id: "",
-    title: "",
-  });
+  const [title, setTitle] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTodo((prev) => {
-      return {
-        ...prev,
-        title: e.target.value,
-      };
-    });
+    setTitle(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (todo.title === "") {
+    if (title === "") {
       return;
     }
-    props.onAddTodo(todo);
-    setTodo((prev) => {
-      return {
-        ...prev,
-        title: "",
-      };
-    });
+    props.onAddTodo(title);
+    setTitle("");
   };
 
   return (
@@ -42,7 +28,7 @@ export const AddTodo: React.FC<IProps> = (props) => {
         <InputField
           type="text"
           onChange={handleChange}
-          value={todo.title}
+          value={title}
           placeholder="Enter task text..."
         />
         <AddButton type="submit">Add todo</AddButton>

@@ -1,19 +1,15 @@
 import { TaskItem } from "../TaskItem";
-import { IItem } from "../../types/todo";
 import { Container } from "./TodosList.styled";
+import { useAppSelector } from "../../hook";
 
-interface IProps {
-  todos: IItem[];
-  delete: (id: string) => void;
-}
-
-export const TodosList: React.FC<IProps> = (props) => {
+export const TodosList: React.FC = () => {
+  const todos = useAppSelector((state) => state.todos.list);
   return (
     <Container>
-      {props.todos.map((todo) => {
+      {todos.map((todo) => {
         return (
           <li key={todo.id}>
-            <TaskItem todo={todo} remove={props.delete} />
+            <TaskItem todo={todo} />
           </li>
         );
       })}
