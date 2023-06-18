@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AddTodoContainer } from "./AddTodo.styled";
+import { AddTodoContainer, AddButton, InputField } from "./AddTodo.styled";
 import { IItem } from "../../types/todo";
 
 interface IProps {
@@ -39,8 +39,13 @@ export const AddTodo: React.FC<IProps> = (props) => {
     <AddTodoContainer>
       <h2>Add title</h2>
       <form onSubmit={handleSubmit} id="form">
-        <input type="text" onChange={handleChange} value={todo.title} />
-        <button type="submit">Add todo</button>
+        <InputField
+          type="text"
+          onChange={handleChange}
+          value={todo.title}
+          placeholder="Enter task text..."
+        />
+        <AddButton type="submit">Add todo</AddButton>
       </form>
     </AddTodoContainer>
   );

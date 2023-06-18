@@ -19,10 +19,18 @@ export const App: React.FC = () => {
     });
   };
 
+  const deleteTodoHandler = (id: string) => {
+    setTodos((prev) => {
+      return prev.filter((todo) => {
+        return todo.id !== id;
+      });
+    });
+  };
+
   return (
     <>
       <AddTodo onAddTodo={addTodoHandler} />
-      <TodosList todos={todos} />
+      <TodosList delete={deleteTodoHandler} todos={todos} />
     </>
   );
 };
