@@ -12,7 +12,7 @@ export const AddTodo: React.FC<IProps> = (props) => {
     title: "",
   });
 
-  const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo((prev) => {
       return {
         ...prev,
@@ -21,19 +21,25 @@ export const AddTodo: React.FC<IProps> = (props) => {
     });
   };
 
-  const handlerSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (todo.title === "") {
       return;
     }
     props.onAddTodo(todo);
+    setTodo((prev) => {
+      return {
+        ...prev,
+        title: "",
+      };
+    });
   };
 
   return (
     <AddTodoContainer>
       <h2>Add title</h2>
-      <form onSubmit={handlerSubmit} id="form">
-        <input type="text" id="title" onChange={handlerChange} />
+      <form onSubmit={handleSubmit} id="form">
+        <input type="text" onChange={handleChange} value={todo.title} />
         <button type="submit">Add todo</button>
       </form>
     </AddTodoContainer>
